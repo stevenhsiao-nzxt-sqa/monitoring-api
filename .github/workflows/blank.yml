@@ -25,7 +25,7 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
   # This workflow contains a single job called "build"
   run-e2e-test:
-    needs: [runner-check, get-date]
+    needs: [get-date]
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
