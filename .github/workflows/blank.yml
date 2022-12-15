@@ -31,7 +31,7 @@ jobs:
   get-hour:
     runs-on: ubuntu-latest
     outputs:
-      date: ${{ steps.set-hour.outputs.hour }}
+      hour: ${{ steps.set-hour.outputs.hour }}
     steps:
       - name: set date output 
         id: set-hour
