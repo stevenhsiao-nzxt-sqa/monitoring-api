@@ -12,19 +12,16 @@ on:
 
   schedule:
     # Set the schedule for the cron job, using standard cron syntax
-    - cron: '${{ matrix.hour }} * * * *'
+    - cron: '0 * * * *'
+    - cron: '1 * * * *'
+    - cron: '2 * * * *'
+    - cron: '3 * * * *'
     
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        hour: [0, 6, 12]
-  
+jobs:  
   get-date:
     runs-on: ubuntu-latest
     outputs:
