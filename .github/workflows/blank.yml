@@ -14,8 +14,8 @@ on:
     # Set the schedule for the cron job, using standard cron syntax
     - cron: '22 * * * *'
     - cron: '28 * * * *'
-    - cron: '32 * * * *'
-    - cron: '38 * * * *'
+    - cron: '34 * * * *'
+    - cron: '40 * * * *'
     
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -30,7 +30,7 @@ jobs:
       - name: set date output 
         id: set-date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-             echo "The cron job will run at minute ${{ cron.minute }}"
+             echo "echo The cron job will run at minute ${{ github.event.schedule.cron.split(' ')[0] }}"
   # This workflow contains a single job called ""
   run-e2e-test:
     needs: [get-date]
