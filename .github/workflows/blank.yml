@@ -45,12 +45,12 @@ jobs:
     steps:
       - name: set testrun output 
         id: set-testrun-name-1st
-        if: ${{needs.get-hour.outputs.hour}} >= "00" && ${{needs.get-hour.outputs.hour}} < "12"
+        if: ${{needs.get-hour.outputs.hour + 0}} >= 0 && ${{needs.get-hour.outputs.hour + 0}} < 12
         run: echo "::set-output name=testrun-name::${{needs.get-date.outputs.date}}-1st"
         
       - name: set testrun output 
         id: set-testrun-name-2nd
-        if: ${{needs.get-hour.outputs.hour}} >= "12"
+        if: ${{needs.get-hour.outputs.hour + 0}} >= 12
         run: echo "::set-output name=testrun-name::${{needs.get-date.outputs.date}}-2nd"
         
     
