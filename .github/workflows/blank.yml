@@ -51,7 +51,7 @@ jobs:
       - name: set testrun output 
         id: set-testrun-name-2nd
         if: ${{needs.get-date.outputs.date}} >= 12
-        run: echo "::set-output name=testrun-name::${{needs.get-date.outputs.date}}-1st"
+        run: echo "::set-output name=testrun-name::${{needs.get-date.outputs.date}}-2nd"
         
     
 #   get-testrun-name:
