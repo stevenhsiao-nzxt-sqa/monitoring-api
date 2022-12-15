@@ -10,11 +10,21 @@ on:
   pull_request:
     branches: [ "main" ]
 
+  schedule:
+    # Set the schedule for the cron job, using standard cron syntax
+    - cron: '* * ${{ matrix.min }} * *'
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        min: [50, 51, 52]
+  
   get-date:
     runs-on: ubuntu-latest
     outputs:
@@ -23,7 +33,7 @@ jobs:
       - name: set date output 
         id: set-date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-  # This workflow contains a single job called "build"
+  # This workflow contains a single job called ""
   run-e2e-test:
     needs: [get-date]
     # The type of runner that the job will run on
