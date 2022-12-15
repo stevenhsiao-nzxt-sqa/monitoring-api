@@ -36,16 +36,33 @@ jobs:
       - name: set date output 
         id: set-hour
         run: echo "::set-output name=hour::$(date +'%H')"
-        
+    
   get-testrun-name:
     runs-on: ubuntu-latest
     needs: [get-date, get-hour]
     outputs:
-      testrun-name: ${{ steps.set-testrun-name.outputs.testrun-name }}
+      testrun-name: ${{ steps.set-testrun-name-1st.outputs.testrun-name }} || ${{ steps.set-testrun-name-2nd.outputs.testrun-name }}
     steps:
       - name: set testrun output 
-        id: set-testrun-name
-        run: echo "::set-output name=testrun-name::${{needs.get-date.outputs.date}}-${{needs.get-hour.outputs.hour}}"
+        id: set-testrun-name-1st
+        if: ${{needs.get-date.outputs.date}} >= 0 && ${{needs.get-date.outputs.date}} < 12
+        run: echo "::set-output name=testrun-name::${{needs.get-date.outputs.date}}-1st"
+        
+      - name: set testrun output 
+        id: set-testrun-name-2nd
+        if: ${{needs.get-date.outputs.date}} >= 12
+        run: echo "::set-output name=testrun-name::${{needs.get-date.outputs.date}}-1st"
+        
+    
+#   get-testrun-name:
+#     runs-on: ubuntu-latest
+#     needs: [get-date, get-hour]
+#     outputs:
+#       testrun-name: ${{ steps.set-testrun-name.outputs.testrun-name }}
+#     steps:
+#       - name: set testrun output 
+#         id: set-testrun-name
+#         run: echo "::set-output name=testrun-name::${{needs.get-date.outputs.date}}-${{needs.get-hour.outputs.hour}}"
 
   # This workflow contains a single job called ""
   run-e2e-test:
