@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [get-date, get-hour]
     outputs:
-      testrun-name: ${{ steps.set-testrun-name.outputs.hour }}
+      testrun-name: ${{ steps.set-testrun-name.outputs.testrun-name }}
     steps:
       - name: set testrun output 
         id: set-testrun-name
