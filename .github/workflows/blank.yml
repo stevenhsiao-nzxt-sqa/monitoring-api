@@ -12,8 +12,8 @@ on:
 
   schedule:
     # Set the schedule for the cron job, using standard cron syntax
-    - cron: '* * ${{ matrix.min }} * *'
-
+    - cron: '${{ matrix.hour }} * * * *'
+    
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        min: [50, 51, 52]
+        hour: [0, 6, 12]
   
   get-date:
     runs-on: ubuntu-latest
