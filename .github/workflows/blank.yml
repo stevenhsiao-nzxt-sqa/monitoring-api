@@ -102,7 +102,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
         with:
-            ref: ${{ github.ref }}
+            ref: ${{ github.ref }} || ${{ github.event.inputs.branch }}
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
