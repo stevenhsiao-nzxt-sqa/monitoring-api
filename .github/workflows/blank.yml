@@ -12,9 +12,40 @@ on:
     
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      branch:
+        description: 'The branch to run the automation on'
+        required: false
+        default: 'main'
+      
+      machine:
+        type: choice
+        description: 'The machine to run the automation on'
+        options:
+          - all
+          - TEST
+          
+      testrun:
+        description: 'The test run name'
+        required: false
+        default: 'No need'
+        
+  schedule:
+    - cron: "0 12 * * *"
+    - cron: "0 0 * * *"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:  
+  runner-check:
+    runs-on: ubuntu-latest
+    outputs:
+      runner: ${{ (github.event.inputs.machine == 'all' || github.event_name == 'schedule') && steps.set-all-runners.outputs.runner || steps.set-one-runner.outputs.runner }}
+    steps:
+      - id: set-all-runners
+        run: echo "::set-output name=runner::{\"runner\":[\"TEST\"]}"
+      - id: set-one-runner
+        run: echo "::set-output name=runner::{\"runner\":[\"${{ github.event.inputs.machine }}\"]}"
+  
   get-date:
     runs-on: ubuntu-latest
     outputs:
